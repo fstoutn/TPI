@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Países</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #aaa;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center;">Listado de Países</h1>
+
+    <!-- Buscador -->
+    <div style="text-align:center; margin-bottom:20px;">
+        <form method="get" action="/">
+            <input type="text" name="buscar" placeholder="Buscar país..." value="{{ buscar }}">
+            <input type="hidden" name="ordenar" value="{{ ordenar }}">
+            <input type="hidden" name="direccion" value="{{ direccion }}">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <!-- Filtros de ordenamiento -->
+    <div style="text-align:center; margin-bottom:20px;">
+        <form method="get" action="/">
+            <label for="ordenar">Ordenar por:</label>
+            <select name="ordenar" id="ordenar">
+                <option value="nombre" {% if ordenar == 'nombre' %}selected{% endif %}>Nombre</option>
+                <option value="poblacion" {% if ordenar == 'poblacion' %}selected{% endif %}>Población</option>
+                <option value="superficie" {% if ordenar == 'superficie' %}selected{% endif %}>Superficie</option>
+                <option value="continente" {% if ordenar == 'continente' %}selected{% endif %}>Continente</option>
+            </select>
+
+            <select name="direccion" id="direccion">
+                <option value="asc" {% if direccion == 'asc' %}selected{% endif %}>Ascendente</option>
+                <option value="desc" {% if direccion == 'desc' %}selected{% endif %}>Descendente</option>
+            </select>
+
+            <button type="submit">Aplicar</button>
+        </form>
+    </div>
+
+    <!-- Tabla de países -->
+    <table>
+        <thead>
+            <tr>
+                <th>País</th>
+                <th>Población</th>
+                <th>Superficie</th>
+                <th>Continente</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pais in paises %}
+            <tr>
+                <td>{{ pais.nombre }}</td>
+                <td>{{ "{:,}".format(pais.poblacion) }}</td>
+                <td>{{ "{:,}".format(pais.superficie) }}</td>
+                <td>{{ pais.continente }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Paginación -->
+    <div style="text-align:center; margin-top:20px;">
+        {% if pagina > 1 %}
+            <a href="/?page={{ pagina - 1 }}&ordenar={{ ordenar }}&direccion={{ direccion }}&buscar={{ buscar }}">Anterior</a>
+        {% endif %}
+
+        Página {{ pagina }} de {{ total_paginas }}
+
+        {% if pagina < total_paginas %}
+            <a href="/?page={{ pagina + 1 }}&ordenar={{ ordenar }}&direccion={{ direccion }}&buscar={{ buscar }}">Siguiente</a>
+        {% endif %}
+    </div>
+</body>
+</html>
+# agregar un spinner para simular la carga de los
