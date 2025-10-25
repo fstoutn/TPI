@@ -3,37 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Países</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin: 20px auto;
-        }
-        th, td {
-            border: 1px solid #aaa;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #eee;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
 </head>
 <body>
-    <h1 style="text-align:center;">Listado de Países</h1>
+    <h1>Listado de Países</h1>
 
     <!-- Buscador -->
-    <div style="text-align:center; margin-bottom:20px;">
+    <div style="margin-bottom:20px;">
         <form method="get" action="/">
             <input type="text" name="buscar" placeholder="Buscar país..." value="{{ buscar }}">
             <input type="hidden" name="ordenar" value="{{ ordenar }}">
             <input type="hidden" name="direccion" value="{{ direccion }}">
-            <button type="submit">Buscar</button>
+            <button type="submit" onclick="mostrarSpinner()">Buscar</button>
+            <div id="spinner"></div>
+
         </form>
     </div>
 
     <!-- Filtros de ordenamiento -->
-    <div style="text-align:center; margin-bottom:20px;">
+    <div style="margin-bottom:20px;">
         <form method="get" action="/">
             <label for="ordenar">Ordenar por:</label>
             <select name="ordenar" id="ordenar">
@@ -75,7 +63,7 @@
     </table>
 
     <!-- Paginación -->
-    <div style="text-align:center; margin-top:20px;">
+    <div style="margin-top:20px;">
         {% if pagina > 1 %}
             <a href="/?page={{ pagina - 1 }}&ordenar={{ ordenar }}&direccion={{ direccion }}&buscar={{ buscar }}">Anterior</a>
         {% endif %}
@@ -86,6 +74,7 @@
             <a href="/?page={{ pagina + 1 }}&ordenar={{ ordenar }}&direccion={{ direccion }}&buscar={{ buscar }}">Siguiente</a>
         {% endif %}
     </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
-# agregar un spinner para simular la carga de los
