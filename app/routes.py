@@ -10,7 +10,7 @@ Actualmente contiene una única ruta ('/') que:
 
 from app import app
 from flask import render_template, request
-from app.utils import cargar_paises_desde_csv
+from app.utils import cargar_paises_desde_csv, calcular_estadisticas
 
 @app.route("/")
 def inicio():
@@ -68,3 +68,13 @@ def inicio():
         direccion=direccion,
         buscar=termino
     )
+@app.route('/estadisticas')
+def estadisticas():
+    # 1. Cargar TODOS los datos (usamos la misma ruta que la func 'inicio')
+    paises = cargar_paises_desde_csv("data/paises.csv")
+    
+    # 2. Calcular las estadísticas con la nueva función de utils.py
+    stats = calcular_estadisticas(paises)
+    
+    # 3. Mostrar la nueva plantilla HTML y pasarle los datos
+    return render_template('estadisticas.html', estadisticas=stats)

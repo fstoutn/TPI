@@ -53,3 +53,36 @@ def cargar_paises_desde_csv(ruta_archivo):
         print(f"Error al leer el CSV: {e}")  # Muestra el error por consola, pero no detiene la app
 
     return paises  # Devuelve la lista completa de países
+
+def calcular_estadisticas(paises):
+    """Calcula todas las estadísticas requeridas por el TP."""
+    
+    if not paises:
+        return {
+            "max_poblacion": {"nombre": "N/A", "poblacion": 0},
+            "min_poblacion": {"nombre": "N/A", "poblacion": 0},
+            "prom_poblacion": 0,
+            "prom_superficie": 0,
+            "paises_por_continente": {}
+        }
+
+    max_pob = max(paises, key=lambda p: p['poblacion'])
+    min_pob = min(paises, key=lambda p: p['poblacion'])
+    total_poblacion = sum(p['poblacion'] for p in paises)
+    total_superficie = sum(p['superficie'] for p in paises)
+    total_paises = len(paises)
+    prom_poblacion = total_poblacion / total_paises
+    prom_superficie = total_superficie / total_paises
+
+    conteo_continentes = {}
+    for p in paises:
+        continente = p.get('continente', 'Desconocido')
+        conteo_continentes[continente] = conteo_continentes.get(continente, 0) + 1
+    
+    return {
+        "max_poblacion": max_pob,
+        "min_poblacion": min_pob,
+        "prom_poblacion": prom_poblacion,
+        "prom_superficie": prom_superficie,
+        "paises_por_continente": conteo_continentes
+    }

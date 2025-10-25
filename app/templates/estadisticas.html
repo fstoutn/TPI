@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadísticas de Países</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+    <h1>Estadísticas de Países</h1>
+    <h2>Población</h2>
+    <ul>
+        <li>
+            <strong>País con mayor población:</strong> 
+            {{ estadisticas.max_poblacion.nombre }} 
+            ({{ "{:,}".format(estadisticas.max_poblacion.poblacion) }})
+        </li>
+        <li>
+            <strong>País con menor población:</strong> 
+            {{ estadisticas.min_poblacion.nombre }} 
+            ({{ "{:,}".format(estadisticas.min_poblacion.poblacion) }})
+        </li>
+        <li>
+            <strong>Promedio de población:</strong> 
+            {{ "{:,.0f}".format(estadisticas.prom_poblacion) }}
+        </li>
+    </ul>
+    <h2>Superficie</h2>
+    <ul>
+        <li>
+            <strong>Promedio de superficie:</strong> 
+            {{ "{:,.0f}".format(estadisticas.prom_superficie) }} km²
+        </li>
+    </ul>
+    <h2>Países por Continente</h2>
+    <ul>
+        {% for continente, cantidad in estadisticas.paises_por_continente.items() %}
+            <li><strong>{{ continente }}:</strong> {{ cantidad }}</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="/"><button type="button">Volver al inicio</button></a>
+</body>
+</html>
