@@ -1,57 +1,238 @@
-/* Body */
-body {
+/* =========================
+   ESTILOS GENERALES
+========================= */
+:root {
+    --color-principal: #2563eb;
+    --color-secundario: #1e40af;
+    --color-fondo: #f9fafb;
+    --color-texto: #1f2937;
+    --color-tabla-header: #dbeafe; /* 🔵 Azul clarito */
+    --color-borde: #d1d5db;
+    --color-boton: #2563eb;
+    --color-boton-hover: #1d4ed8;
+    --radio-borde: 6px;
+    --transicion: 0.2s ease-in-out;
+    --sombra-suave: 0 2px 5px rgba(0,0,0,0.1);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f8ff;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
     margin: 0;
-    padding: 0;
-    text-align: center;
+    padding: 20px;
 }
 
-/* Títulos */
 h1 {
-    margin-top: 20px;
-    color: #007acc;
-}
-
-/* Tabla */
-table {
-    border-collapse: collapse;
-    width: 80%;
-    margin: 20px auto;
-    background-color: #ffffff;
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
-}
-
-th, td {
-    border: 1px solid #aaa;
-    padding: 10px;
     text-align: center;
+    color: var(--color-principal);
+    margin-bottom: 30px;
 }
 
-th {
-    background-color: #b3e0ff; /* celeste más intenso */
-    color: #000;
-    font-weight: bold;
+/* =========================
+   FORMULARIOS DE FILTROS Y BÚSQUEDA
+========================= */
+.filtros-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
 }
 
-/* Botones */
+form {
+    background: white;
+    padding: 15px 20px;
+    border-radius: var(--radio-borde);
+    box-shadow: var(--sombra-suave);
+}
+
+/* 🔹 Caja especial para el botón “Ver estadísticas” */
+.box-estadisticas {
+    background: white;
+    padding: 15px 20px;
+    border-radius: var(--radio-borde);
+    box-shadow: var(--sombra-suave);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🔹 Botón sin estilo de enlace */
+a.button-link {
+    text-decoration: none;
+}
+
+.form-busqueda input[type="text"] {
+    padding: 8px 10px;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-borde);
+    width: 200px;
+}
+
 button {
-    background-color: #007acc;
+    background-color: var(--color-boton);
     color: white;
     border: none;
-    padding: 6px 12px;
+    padding: 8px 14px;
+    border-radius: var(--radio-borde);
     cursor: pointer;
-    border-radius: 4px;
-    font-size: 14px;
+    transition: background var(--transicion);
+    font-weight: 500;
 }
 
 button:hover {
-    background-color: #005f99;
+    background-color: var(--color-boton-hover);
 }
 
-/* Inputs */
-input[type="text"], select {
-    padding: 6px;
-    border-radius: 4px;
-    border: 1px solid #aaa;
+select {
+    padding: 8px;
+    border-radius: var(--radio-borde);
+    border: 1px solid var(--color-borde);
+    background-color: white;
+}
+
+/* =========================
+   TABLA DE PAÍSES
+========================= */
+.tabla-container {
+    overflow-x: auto;
+    box-shadow: var(--sombra-suave);
+    border-radius: var(--radio-borde);
+    background: white;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+th {
+    background-color: var(--color-tabla-header); /* 🔵 azul clarito */
+    font-weight: 600;
+}
+
+tr:hover {
+    background-color: #f3f4f6;
+}
+
+/* =========================
+   PAGINACIÓN
+========================= */
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.paginacion-boton {
+    background: var(--color-boton);
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: var(--radio-borde);
+    transition: background var(--transicion);
+}
+
+.paginacion-boton:hover {
+    background: var(--color-boton-hover);
+}
+
+/* =========================
+   ESTADÍSTICAS
+========================= */
+.estadistica-card {
+    background: white;
+    box-shadow: var(--sombra-suave);
+    border-radius: var(--radio-borde);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 700px;
+}
+
+.estadistica-card h2 {
+    color: var(--color-secundario);
+    border-bottom: 2px solid var(--color-principal);
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.estadistica-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--color-borde);
+}
+
+.estadistica-item:last-child {
+    border-bottom: none;
+}
+
+.etiqueta {
+    font-weight: 500;
+}
+
+.valor {
+    color: var(--color-principal);
+    font-weight: 600;
+}
+
+/* =========================
+   CONTINENTES GRID
+========================= */
+.continentes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.continente-item {
+    background-color: #f3f4f6;
+    padding: 10px;
+    border-radius: var(--radio-borde);
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+/* =========================
+   BOTÓN DE VOLVER
+========================= */
+a button {
+    display: block;
+    margin: 30px auto;
+    font-size: 16px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .form-busqueda input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .filtros-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    form, .box-estadisticas {
+        width: 100%;
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 14px;
+    }
 }

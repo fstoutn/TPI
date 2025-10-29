@@ -7,28 +7,20 @@
 </head>
 <body>
     <h1>Listado de Países</h1>
+    <!-- Contenedor de búsqueda y filtros -->
+    <section class="filtros-container">
+        <!-- Buscador -->
+        <form method="get" action="/" class="form-busqueda">
+    <input type="text" name="buscar" placeholder="Buscar país..." value="{{ buscar }}">
+    <input type="hidden" name="ordenar" value="{{ ordenar }}">
+    <input type="hidden" name="direccion" value="{{ direccion }}">
+    <button type="submit">Buscar</button>
+</form>
 
-    <!-- Boton Estadistica -->
-    <div style="margin-bottom:20px;">
-        <a href="/estadisticas">
-            <button type="button">Ver Estadísticas</button>
-        </a>
-    </div>
-    <!-- Buscador -->
-    <div style="margin-bottom:20px;">
-        <form method="get" action="/">
-            <input type="text" name="buscar" placeholder="Buscar país..." value="{{ buscar }}">
-            <input type="hidden" name="ordenar" value="{{ ordenar }}">
-            <input type="hidden" name="direccion" value="{{ direccion }}">
-            <button type="submit" onclick="mostrarSpinner()">Buscar</button>
-            <div id="spinner"></div>
+    
 
-        </form>
-    </div>
-
-    <!-- Filtros de ordenamiento -->
-    <div style="margin-bottom:20px;">
-        <form method="get" action="/">
+        <!-- Filtros de ordenamiento -->
+        <form method="get" action="/" class="form-filtros">
             <label for="ordenar">Ordenar por:</label>
             <select name="ordenar" id="ordenar">
                 <option value="nombre" {% if ordenar == 'nombre' %}selected{% endif %}>Nombre</option>
@@ -44,43 +36,46 @@
 
             <button type="submit">Aplicar</button>
         </form>
-    </div>
-
+        <a href="/estadisticas" class="button-link">
+        <button type="button">Ver Estadísticas</button>
+    </a>
+    </section>
+    
     <!-- Tabla de países -->
-    <table>
-        <thead>
-            <tr>
-                <th>País</th>
-                <th>Población</th>
-                <th>Superficie</th>
-                <th>Continente</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for pais in paises %}
-            <tr>
-                <td>{{ pais.nombre }}</td>
-                <td>{{ "{:,}".format(pais.poblacion) }}</td>
-                <td>{{ "{:,}".format(pais.superficie) }}</td>
-                <td>{{ pais.continente }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="tabla-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>País</th>
+                    <th>Población</th>
+                    <th>Superficie</th>
+                    <th>Continente</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pais in paises %}
+                <tr>
+                    <td>{{ pais.nombre }}</td>
+                    <td>{{ "{:,}".format(pais.poblacion) }}</td>
+                    <td>{{ "{:,}".format(pais.superficie) }}</td>
+                    <td>{{ pais.continente }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <!-- Paginación -->
-    <div style="margin-top:20px;">
+    <div class="paginacion">
         {% if pagina > 1 %}
-            <a href="/?page={{ pagina - 1 }}&ordenar={{ ordenar }}&direccion={{ direccion }}&buscar={{ buscar }}">Anterior</a>
+            <a class="paginacion-boton" href="/?page={{ pagina - 1 }}&ordenar={{ ordenar }}&direccion={{ direccion }}&buscar={{ buscar }}">⟵ Anterior</a>
         {% endif %}
 
-        Página {{ pagina }} de {{ total_paginas }}
+        <span>Página {{ pagina }} de {{ total_paginas }}</span>
 
         {% if pagina < total_paginas %}
-            <a href="/?page={{ pagina + 1 }}&ordenar={{ ordenar }}&direccion={{ direccion }}&buscar={{ buscar }}">Siguiente</a>
+            <a class="paginacion-boton" href="/?page={{ pagina + 1 }}&ordenar={{ ordenar }}&direccion={{ direccion }}&buscar={{ buscar }}">Siguiente ⟶</a>
         {% endif %}
     </div>
-
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
