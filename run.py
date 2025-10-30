@@ -52,10 +52,10 @@ def generar_csv():
     except Exception as e:
         print(f"Error al generar el CSV: {e}")
 
+#Generar el CSV 
+generar_csv()
 
 if __name__ == "__main__":
-    # Generar el CSV antes de arrancar Flask
-    generar_csv()
 
     # Inicia la aplicación Flask
     app.run(debug=True, host="0.0.0.0", port=5000)
