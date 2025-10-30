@@ -11,6 +11,7 @@ Actualmente contiene una única ruta ('/') que:
 from app import app
 from flask import render_template, request
 from app.utils import cargar_paises_desde_csv, calcular_estadisticas
+import operator
 
 @app.route("/")
 def inicio():
@@ -46,9 +47,11 @@ def inicio():
     campo_orden = request.args.get('ordenar', 'nombre')
     direccion = request.args.get('direccion', 'asc')
     campos_validos = ['nombre', 'poblacion', 'superficie', 'continente']
+
     if campo_orden in campos_validos:
         reverse = (direccion == 'desc')
-        paises.sort(key=lambda x: x[campo_orden], reverse=reverse)
+        # Usando operator.itemgetter en lugar de lambda
+        paises.sort(key=operator.itemgetter(campo_orden), reverse=reverse)
 
     # PAGINACIÓN: se muestra de a 10 países por página
     pagina = request.args.get('page', 1, type=int)
@@ -56,7 +59,7 @@ def inicio():
     start = (pagina - 1) * per_page
     end = start + per_page
     paises_pagina = paises[start:end]
-    total_paginas = (len(paises) + per_page - 1) // per_page  # redondeo hacia arriba
+    total_paginas = (len(paises) + per_page - 1) // per_page
 
     return render_template(
         "index.html",
@@ -69,6 +72,7 @@ def inicio():
         total_paises_csv=len(cargar_paises_desde_csv("data/paises.csv")),
         total_filtrados=len(paises)
     )
+
 @app.route('/estadisticas')
 def estadisticas():
     # 1. Cargar TODOS los datos (usamos la misma ruta que la func 'inicio')
