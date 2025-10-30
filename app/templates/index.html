@@ -6,7 +6,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
 </head>
 <body>
-    <h1>Listado de Países</h1>
+    <h1>
+    Listado de Países
+    <small style="font-size: 0.7em; color: #555;">
+        (Mostrando {{ total_filtrados }} de {{ total_paises_csv }})
+    </small>
+</h1>
+
     <!-- Contenedor de búsqueda y filtros -->
     <section class="filtros-container">
         <!-- Buscador -->

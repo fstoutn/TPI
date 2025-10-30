@@ -58,7 +58,6 @@ def inicio():
     paises_pagina = paises[start:end]
     total_paginas = (len(paises) + per_page - 1) // per_page  # redondeo hacia arriba
 
-    # Renderiza la plantilla con los datos procesados
     return render_template(
         "index.html",
         paises=paises_pagina,
@@ -66,7 +65,9 @@ def inicio():
         total_paginas=total_paginas,
         ordenar=campo_orden,
         direccion=direccion,
-        buscar=termino
+        buscar=termino,
+        total_paises_csv=len(cargar_paises_desde_csv("data/paises.csv")),
+        total_filtrados=len(paises)
     )
 @app.route('/estadisticas')
 def estadisticas():
