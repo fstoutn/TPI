@@ -86,3 +86,57 @@ def calcular_estadisticas(paises):
         "prom_superficie": prom_superficie,
         "paises_por_continente": conteo_continentes
     }
+def calcular_estadisticas(paises):
+    """Calcula todas las estadísticas requeridas por el TP."""
+    
+    
+    def obtener_poblacion(pais):
+        return pais['poblacion']
+
+    if not paises:
+        return {
+            "max_poblacion": {"nombre": "N/A", "poblacion": 0},
+            "min_poblacion": {"nombre": "N/A", "poblacion": 0},
+            "prom_poblacion": 0,
+            "prom_superficie": 0,
+            "paises_por_continente": {}
+        }
+
+    
+    max_pob = max(paises, key=obtener_poblacion)
+    min_pob = min(paises, key=obtener_poblacion)
+    
+    
+    
+    # 1. Cálculo de la población total
+    total_poblacion = 0
+    for p in paises:
+        total_poblacion += p['poblacion'] 
+
+    # 2. Cálculo de la superficie total
+    total_superficie = 0
+    for p in paises:
+        total_superficie += p['superficie']
+            
+    
+
+    total_paises = len(paises)
+    
+    #Se calculan los promedios 
+    
+    prom_poblacion = total_poblacion / total_paises
+    prom_superficie = total_superficie / total_paises
+
+    
+    conteo_continentes = {}
+    for p in paises:
+        continente = p.get('continente', 'Desconocido')
+        conteo_continentes[continente] = conteo_continentes.get(continente, 0) + 1
+    
+    return {
+        "max_poblacion": max_pob,
+        "min_poblacion": min_pob,
+        "prom_poblacion": prom_poblacion,
+        "prom_superficie": prom_superficie,
+        "paises_por_continente": conteo_continentes
+    }
