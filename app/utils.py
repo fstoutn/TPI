@@ -7,7 +7,7 @@ Actualmente incluye:
 - cargar_paises_desde_csv: lee un archivo CSV de países y devuelve los datos en forma estructurada.
 """
 
-import csv
+import csv,operator
 
 def cargar_paises_desde_csv(ruta_archivo):
     """
@@ -66,8 +66,9 @@ def calcular_estadisticas(paises):
             "paises_por_continente": {}
         }
 
-    max_pob = max(paises, key=lambda p: p['poblacion'])
-    min_pob = min(paises, key=lambda p: p['poblacion'])
+    max_pob = max(paises, key=operator.itemgetter('poblacion'))
+    min_pob = min(paises, key=operator.itemgetter('poblacion'))
+
     total_poblacion = sum(p['poblacion'] for p in paises)
     total_superficie = sum(p['superficie'] for p in paises)
     total_paises = len(paises)
@@ -86,6 +87,7 @@ def calcular_estadisticas(paises):
         "prom_superficie": prom_superficie,
         "paises_por_continente": conteo_continentes
     }
+
 def calcular_estadisticas(paises):
     """Calcula todas las estadísticas requeridas por el TP."""
     

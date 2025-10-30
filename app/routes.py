@@ -50,7 +50,6 @@ def inicio():
 
     if campo_orden in campos_validos:
         reverse = (direccion == 'desc')
-        # Usando operator.itemgetter en lugar de lambda
         paises.sort(key=operator.itemgetter(campo_orden), reverse=reverse)
 
     # PAGINACIÓN: se muestra de a 10 países por página
