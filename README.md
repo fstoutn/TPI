@@ -103,3 +103,6 @@ Correccion de errores en funciones del codigo
 Testeo de funciones
 Creacion del archivo "Informe"
 Video explicativo
+
+#VIDEO EXPLICATIVO
+https://drive.google.com/file/d/1qrfj7Kj7mdBeC2zh3DISV2SPl89riGpe/view?usp=sharing
